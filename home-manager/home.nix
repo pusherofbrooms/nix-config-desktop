@@ -48,7 +48,7 @@
     waybar
     wget
     
-    ((emacsPackagesFor emacs-git).emacsWithPackages (epkgs: [
+    ((emacsPackagesFor emacs-unstable).emacsWithPackages (epkgs: [
       epkgs.auto-complete
       epkgs.company
       epkgs.company-irony
@@ -59,6 +59,7 @@
       epkgs.exec-path-from-shell
       epkgs.flycheck
       epkgs.flycheck-irony
+      epkgs.gptel
       epkgs.irony
       epkgs.irony-eldoc
       epkgs.js2-mode
