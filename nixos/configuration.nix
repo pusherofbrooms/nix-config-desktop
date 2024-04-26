@@ -64,9 +64,11 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-    xkbOptions = "ctrl:nocaps";
+    xkb = {
+      layout = "us";
+      variant = "";
+      options = "ctrl:nocaps";
+    };
     # for steam. maybe not needed.
     videoDrivers = [ "amdgpu" ];
   };
