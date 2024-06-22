@@ -78,6 +78,8 @@
   
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.brlaser ];
+  
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -126,7 +128,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    #  wget
   ];
 
   programs.sway.enable = true;
