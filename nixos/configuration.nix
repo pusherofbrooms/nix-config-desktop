@@ -121,8 +121,8 @@
   nixpkgs.config.allowUnfree = true;
 
   # for steam. Fixed launch issue.
-  hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.enable = true;
+  hardware.graphics.enable32Bit = true;
+  hardware.graphics.enable = true;
   
   # List packages installed in system profile. To search, run:
   # $ nix search wget
