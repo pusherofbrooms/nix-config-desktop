@@ -82,7 +82,6 @@
   
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
 
   security.pam.services.swaylock = {
@@ -117,6 +116,16 @@
     ];
   };
 
+  # virtualisation for podman
+  virtualisation = {
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
+  
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
