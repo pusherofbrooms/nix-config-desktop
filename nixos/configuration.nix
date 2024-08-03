@@ -109,23 +109,16 @@
   users.users.jjorgens = {
     isNormalUser = true;
     description = "John Jorgensen";
-    extraGroups = [ "networkmanager" "wheel" "video" "render" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "render" "docker" ];
     packages = with pkgs; [
     #  firefox
     #  thunderbird
     ];
   };
 
-  # virtualisation for podman
-  virtualisation = {
-    containers.enable = true;
-    podman = {
-      enable = true;
-      dockerCompat = true;
-      dockerSocket.enable = true;
-      defaultNetwork.settings.dns_enabled = true;
-    };
-  };
+  # docker support
+  virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs";
   
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -162,6 +155,7 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  networking.firewall.trustedInterfaces = [ "docker0" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
