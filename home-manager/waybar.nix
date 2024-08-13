@@ -7,7 +7,7 @@
       height = 30;
       modules-left = [ "sway/workspaces" "sway/mode" ];
       modules-center = [ "sway/window" ];
-      modules-right = [ "pulseaudio" "network" "cpu" "memory" "temperature" "clock" ];
+      modules-right = [ "tray" "pulseaudio" "network" "cpu" "memory" "temperature" "clock" ];
       "sway/workspaces" = {
         disable-scroll = true;
         all-outputs = true;
@@ -26,6 +26,10 @@
       };
       "pulseaudio" = {
         "on-click" = "pavucontrol";
+      };
+      "tray" = {
+        "spacing" = "10";
+        "icon-size" = "21";
       };
     };
   };
