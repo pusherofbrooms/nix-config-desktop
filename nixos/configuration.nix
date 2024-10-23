@@ -121,7 +121,10 @@
   virtualisation.docker.storageDriver = "btrfs";
   
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    rocmSupport = true;
+  };
 
   # for steam. Fixed launch issue.
   hardware.graphics.enable32Bit = true;
