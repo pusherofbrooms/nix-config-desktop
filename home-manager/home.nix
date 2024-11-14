@@ -203,18 +203,70 @@ PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]$(__git_ps1 "(%s)
   # set popular env (XDG_DATA_HOME, etc.)
   targets.genericLinux.enable = true;
 
-  # sway
-  wayland.windowManager.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    config = rec {
-      modifier = "Mod4";
-      menu = "wofi --show";
-      bars = [{
-        command = "waybar";
-      }];
-      input = {
-        "*" = { xkb_options = "ctrl:nocaps,ctrl:swapcaps"; };
+  # used with hyprland
+  programs.kitty.enable = true;
+  
+  wayland.windowManager = {
+    # sway
+    sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+      config = rec {
+        modifier = "Mod4";
+        menu = "wofi --show";
+        bars = [{
+          command = "waybar";
+        }];
+        input = {
+          "*" = { xkb_options = "ctrl:nocaps,ctrl:swapcaps"; };
+        };
+      };
+    };
+    # hyprland
+    hyprland = {
+      enable = true;
+      settings = {
+        "$mod" = "SUPER";
+        "$menu" = "wofi --show";
+        exec-once = "waybar";
+        monitor = ", preferred, auto, 1";
+        bind =
+          [
+            "$mod, D, exec, $menu"
+            "$mod, Return, exec, kitty"
+            "$mod SHIFT, E, exit"
+            "$mod, V, toggleFloating"
+            "$mod, P, pseudo"
+            "$mod, J, togglesplit"
+            "$mod, left, movefocus, l"
+            "$mod, right, movefocus, r"
+            "$mod, up, movefocus, u"
+            "$mod, down, movefocus, d"
+            "$mod SHIFT, left, movewindow, l"
+            "$mod SHIFT, right, movewindow, r"
+            "$mod SHIFT, up, movewindow, u"
+            "$mod SHIFT, down, movewindow, d"
+          ]
+          ++ (
+            # workspaces
+            # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+            builtins.concatLists (builtins.genList (i:
+              let ws = i + 1;
+              in [
+                "$mod, code:1${toString i}, workspace, ${toString ws}"
+                "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+              ]
+            )
+              9)
+          );
+        bindm =
+          [
+            "$mod, mouse:272, movewindow"
+            "$mod, mouse:273, resizewindow"
+          ];
+        input = {
+          kb_options = "ctrl:nocaps,ctrl:swapcaps";
+        };
       };
     };
   };

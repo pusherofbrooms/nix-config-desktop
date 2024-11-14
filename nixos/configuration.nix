@@ -137,6 +137,10 @@
     #  wget
   ];
 
+  # hyprland
+  programs.hyprland.enable = true;
+
+  # sway
   programs.sway.enable = true;
   programs.sway.package = null;
 
