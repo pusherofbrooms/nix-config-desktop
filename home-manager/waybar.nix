@@ -5,8 +5,8 @@
       layer = "top";
       position = "top";
       height = 30;
-      modules-left = [ "sway/workspaces" "sway/mode" ];
-      modules-center = [ "sway/window" ];
+      modules-left = [ "sway/workspaces" "sway/mode" "hyprland/workspaces" "hyprland/submap" ];
+      modules-center = [ "sway/window" "hyprland/window" ];
       modules-right = [ "tray" "pulseaudio" "network" "cpu" "memory" "temperature" "clock" ];
       "sway/workspaces" = {
         disable-scroll = true;
@@ -38,6 +38,7 @@
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: Roboto, Helvetica, Arial, sans-serif;
     font-size: 18px;
+    
 }
 
 window#waybar {
@@ -116,6 +117,7 @@ window#waybar.chromium {
 #idle_inhibitor {
     padding: 0 10px;
     color: #ffffff;
+    border-radius: 10% 10% 10% 10%;
 }
 
 #window,

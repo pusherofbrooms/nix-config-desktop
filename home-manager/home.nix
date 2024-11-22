@@ -267,6 +267,10 @@ PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]$(__git_ps1 "(%s)
         input = {
           kb_options = "ctrl:nocaps,ctrl:swapcaps";
         };
+        misc = {
+          disable_hyprland_logo = "true";
+          force_default_wallpaper = "0";
+        };
       };
     };
   };
