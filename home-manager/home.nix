@@ -229,8 +229,6 @@ PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]$(__git_ps1 "(%s)
       settings = {
         "$mod" = "SUPER";
         "$menu" = "wofi --show";
-        exec-once = "waybar";
-        monitor = ", preferred, auto, 1";
         bind =
           [
             "$mod, D, exec, $menu"
@@ -276,6 +274,13 @@ PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]$(__git_ps1 "(%s)
             "$mod, mouse:272, movewindow"
             "$mod, mouse:273, resizewindow"
           ];
+        decoration = {
+          rounding = "10";
+        };
+        exec-once = "waybar";
+        general = {
+          gaps_out = "10";
+        };
         input = {
           kb_options = "ctrl:nocaps,ctrl:swapcaps";
         };
@@ -283,6 +288,7 @@ PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]$(__git_ps1 "(%s)
           disable_hyprland_logo = "true";
           force_default_wallpaper = "0";
         };
+        monitor = ", preferred, auto, 1";
       };
     };
   };
