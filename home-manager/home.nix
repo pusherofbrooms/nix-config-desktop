@@ -31,6 +31,7 @@
     gawk
     git
     git-lfs
+    grimblast
     htop
     jq
     keepassxc
@@ -250,6 +251,13 @@ PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]$(__git_ps1 "(%s)
             ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
             ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-"
             ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+            # screenies
+            #  Active window
+            ", print, exec, grimblast save active"
+            #  Save area
+            "$mod, print, exec, grimblast save area"
+            #  Save whole screen
+            "$mod CTRL, print, exec, grimblast save screen"
           ]
           ++ (
             # workspaces
