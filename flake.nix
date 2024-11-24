@@ -18,6 +18,7 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        config.rocmSupport = true;
         overlays = [ emacs-overlay.overlay ];
       };
     in {
