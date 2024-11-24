@@ -50,8 +50,6 @@
     ripgrep
     slack
     steam
-    swaylock
-    swayidle
     thunderbird
     tree
     waybar
@@ -215,20 +213,20 @@ PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]$(__git_ps1 "(%s)
   
   wayland.windowManager = {
     # sway
-    sway = {
-      enable = true;
-      wrapperFeatures.gtk = true;
-      config = rec {
-        modifier = "Mod4";
-        menu = "wofi --show";
-        bars = [{
-          command = "waybar";
-        }];
-        input = {
-          "*" = { xkb_options = "ctrl:nocaps,ctrl:swapcaps"; };
-        };
-      };
-    };
+    # sway = {
+    #   enable = true;
+    #   wrapperFeatures.gtk = true;
+    #   config = rec {
+    #     modifier = "Mod4";
+    #     menu = "wofi --show";
+    #     bars = [{
+    #       command = "waybar";
+    #     }];
+    #     input = {
+    #       "*" = { xkb_options = "ctrl:nocaps,ctrl:swapcaps"; };
+    #     };
+    #   };
+    # };
     # hyprland
     hyprland = {
       enable = true;

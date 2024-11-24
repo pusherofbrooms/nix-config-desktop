@@ -19,31 +19,32 @@
     ];
   };
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    rocmSupport = true;
+  boot = {
+    # Use latest kernel
+    kernelPackages = pkgs.linuxPackages_latest;
+  
+    # Bootloader.
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+    # boot.loader.efi.efiSysMountPoint = "/boot/EFI";
   };
-  
-  # Use latest kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/EFI";
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # use x keymap in console
+  console.useXkbConfig = true;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  # List packages installed in system profile. To search, run:
+  environment.systemPackages = with pkgs; [
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+  ];
 
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "America/New_York";
+  # Enable sound with pipewire.
+  hardware = {
+    pulseaudio.enable = false;
+    # for steam. Fixed launch issue.
+    graphics.enable32Bit = true;
+    graphics.enable = true;
+  };
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -60,55 +61,79 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
+  networking = {
+    hostName = "nixos"; # Define your hostname.
+    # Enable networking
+    networkmanager.enable = true;
+    # Open ports in the firewall.
+    # firewall.allowedTCPPorts = [ ... ];
+    # firewall.allowedUDPPorts = [ ... ];
+    # Or disable the firewall altogether.
+    # firewall.enable = false;
+    firewall.trustedInterfaces = [ "docker0" ];
+  };
 
-  # Enable the XFCE Desktop Environment.
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.xfce.enable = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    rocmSupport = true;
+  };
+  
+  # hyprland
+  programs = {
+    hyprland.enable = true;
+  };
 
-  # Configure keymap in X11
-  services.xserver = {
-    xkb = {
-      layout = "us";
-      variant = "";
-      options = "ctrl:nocaps";
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+
+  security = {
+    pam.services.swaylock = {
+      text = "auth include login";
     };
-    # for steam. maybe not needed.
-    videoDrivers = [ "amdgpu" ];
+    rtkit.enable = true;
+    polkit.enable = true;
   };
-
-  # use x keymap in console
-  console.useXkbConfig = true;
   
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.brlaser ];
-  
+  services = {
+    # List services that you want to enable:
 
-  # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+    # Enable the OpenSSH daemon.
+    # openssh.enable = true;
 
-  security.pam.services.swaylock = {
-    text = "auth include login";
+    # sound
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+
+    # Enable CUPS to print documents.
+    printing = {
+      enable = true;
+      drivers = [ pkgs.brlaser ];
+    };
+
+    xserver = {
+      # Configure keymap in X11
+      xkb = {
+        layout = "us";
+        variant = "";
+        options = "ctrl:nocaps";
+      };
+      # for steam. maybe not needed.
+      videoDrivers = [ "amdgpu" ];
+    };
+
   };
-  security.rtkit.enable = true;
-  security.polkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
 
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  # Set your time zone.
+  time.timeZone = "America/New_York";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jjorgens = {
@@ -122,46 +147,14 @@
   };
 
   # docker support
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
+  virtualisation = {
+    docker.enable = true;
+    docker.storageDriver = "btrfs";
+  };
   
-  # for steam. Fixed launch issue.
-  hardware.graphics.enable32Bit = true;
-  hardware.graphics.enable = true;
-  
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
-  ];
 
-  # hyprland
-  programs.hyprland.enable = true;
 
-  # sway
-  programs.sway.enable = true;
-  programs.sway.package = null;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-  networking.firewall.trustedInterfaces = [ "docker0" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
