@@ -19,6 +19,11 @@
     ];
   };
 
+  nixpkgs.config = {
+    allowUnfree = true;
+    rocmSupport = true;
+  };
+  
   # Use latest kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
   

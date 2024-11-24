@@ -17,6 +17,12 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
+
+  # nixpkgs.config = {
+  #   allowUnfree = true;
+  #   rocmSupport = true;
+  # };
+  
   home.packages = with pkgs; [
     # One imagines that one would need to install an emacs variant
     # before installing packages, but that appears to not be the case.
