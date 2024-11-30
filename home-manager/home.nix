@@ -249,6 +249,7 @@ PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]$(__git_ps1 "(%s)
             "$mod SHIFT, right, movewindow, r"
             "$mod SHIFT, up, movewindow, u"
             "$mod SHIFT, down, movewindow, d"
+            "$mod, Q, killactive,"
             # audio
             ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
             ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-"
