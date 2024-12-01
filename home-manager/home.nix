@@ -33,6 +33,7 @@
     btop
     dos2unix
     firefox
+    font-awesome
     fzf
     gawk
     git
@@ -42,7 +43,6 @@
     jq
     keepassxc
     mako
-    nerdfonts
     nextcloud-client
     nmap
     pavucontrol
@@ -100,6 +100,9 @@
     # '')
   ];
 
+  # home-manager to control fonts
+  fonts.fontconfig.enable = true;
+  
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
