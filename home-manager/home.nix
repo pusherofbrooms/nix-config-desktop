@@ -79,6 +79,7 @@
       epkgs.popup
       epkgs.projectile
       epkgs.rust-mode
+      epkgs.swiper
       epkgs.toml-mode
       epkgs.vterm
       epkgs.web-mode
