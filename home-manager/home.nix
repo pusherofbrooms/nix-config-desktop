@@ -1,9 +1,6 @@
 { config, pkgs, ... }:
 
-let aider-chat-latest = pkgs.aider-chat.overrideAttrs (oldAttrs: rec {
-        version = "0.79.0";
-      });
-in {
+{
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "jjorgens";
@@ -30,7 +27,7 @@ in {
     # One imagines that one would need to install an emacs variant
     # before installing packages, but that appears to not be the case.
     # emacs-git
-    aider-chat-latest
+    aider-chat
     amdgpu_top
     awscli2
     bottom
